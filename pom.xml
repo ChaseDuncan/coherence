@@ -30,26 +30,26 @@
     </pluginRepositories>
 
     <dependencies>
-        <dependency>
-            <groupId>edu.illinois.cs.cogcomp</groupId>
-            <artifactId>LBJava</artifactId>
-            <version>1.2.24</version>
-        </dependency>
-        <dependency>
-            <groupId>edu.illinois.cs.cogcomp</groupId>
-            <artifactId>illinois-core-utilities</artifactId>
-            <version>3.0.58</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>edu.illinois.cs.cogcomp</groupId>-->
+            <!--<artifactId>LBJava</artifactId>-->
+            <!--<version>1.2.24</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>edu.illinois.cs.cogcomp</groupId>-->
+            <!--<artifactId>illinois-core-utilities</artifactId>-->
+            <!--<version>3.0.58</version>-->
+        <!--</dependency>-->
         
         <dependency>
             <groupId>edu.illinois.cs.cogcomp</groupId>
             <artifactId>illinois-nlp-pipeline</artifactId>
-            <version>0.1.23</version>
+            <version>3.0.87</version>
         </dependency>
         <dependency>
             <groupId>edu.illinois.cs.cogcomp</groupId>
             <artifactId>xlwikifier</artifactId>
-            <version>1.0.10</version>
+            <version>1.0.11</version>
         </dependency>
 
     </dependencies>
