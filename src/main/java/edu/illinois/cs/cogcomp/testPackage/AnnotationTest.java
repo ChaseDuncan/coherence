@@ -8,8 +8,8 @@ import edu.illinois.cs.cogcomp.core.datastructures.textannotation.TextAnnotation
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.View;
 import edu.illinois.cs.cogcomp.core.utilities.configuration.Configurator;
 import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager;
-import edu.illinois.cs.cogcomp.nlp.common.PipelineConfigurator;
-import edu.illinois.cs.cogcomp.nlp.pipeline.IllinoisPipelineFactory;
+import edu.illinois.cs.cogcomp.pipeline.common.PipelineConfigurator;
+import edu.illinois.cs.cogcomp.pipeline.main.PipelineFactory;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -40,7 +40,7 @@ public class AnnotationTest {
         nonDefaultProp.put(PipelineConfigurator.USE_SRL_NOM.key, Configurator.FALSE);
 
         // Create the AnnotatorService object
-        AnnotatorService annotator = IllinoisPipelineFactory.buildPipeline(new ResourceManager(nonDefaultProp));
+        AnnotatorService annotator = PipelineFactory.buildPipeline(new ResourceManager(nonDefaultProp));
 
         // Create a new TextAnnotation object. This will tokenize and split the sentences
         // (it will create the TOKENS and SENTENCE views).
