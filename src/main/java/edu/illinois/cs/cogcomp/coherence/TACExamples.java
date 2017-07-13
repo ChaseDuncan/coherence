@@ -58,19 +58,27 @@ public class TACExamples{
         List<String> lineSplit = Arrays.asList(line.split("\\s*\t\\s*"));
         String docId = lineSplit.get(0);
         QueryDocument qd = docMap.get(docId);
+
         // add QueryDocument to list if it isn't there already
         if(null == qd){
+          String text = lineSplit.get(1);
           qd = new QueryDocument(docId);
+          qd.setText(text);
           docMap.put(docId,qd);
         }
-        ListIterator<String> it = lineSplit.listIterator(1);
+        ListIterator<String> it = lineSplit.listIterator(2);
         String mentionSurface = it.next();
         String mentionId = it.next();
+        String mentionType = it.next();
         ELMention m = new ELMention(mentionId,mentionSurface,docId);
+        m.setType(mentionType);
         List<WikiCand> candidates = new ArrayList<WikiCand>();
         while(it.hasNext()){
-          candidates.add(new WikiCand(it.next(), 
-                            Double.parseDouble(it.next())));
+          String origTitle = it.next();
+          double score = Double.parseDouble(it.next());
+          WikiCand wd = new WikiCand(origTitle,score); 
+          wd.orig_title = origTitle;
+          candidates.add(wd);
         }
         m.setCandidates(candidates);
         qd.mentions.add(m);
@@ -132,6 +140,7 @@ public class TACExamples{
       // for each mention, print its candidates
     }
     // return ret; why did CT do this?
+
     return docs;
   }
 
@@ -143,8 +152,8 @@ public class TACExamples{
             m.getEndOffset()+" "+
             m.gold_mid);
         for(WikiCand cand: m.getCandidates()){
-          System.out.println("\t"+cand.orig_title+" "+
-              cand.getTitle()+" "+cand.score);
+          System.out.println("\t"+cand.getOrigTitle()+" "+
+              cand.getTitle()+" "+cand.getScore());
         }
       }
     }
@@ -152,20 +161,27 @@ public class TACExamples{
 
   private void createQDocDataFile(){
     List<QueryDocument> examples = generateTACExamples();
+    System.out.println("Size of examples is " + examples.size());
     StringBuilder sb = new StringBuilder();
+    // clear buffer
+    sb.setLength(0);
     for (QueryDocument ex : examples){
       String id = ex.getDocID(); 
-      // clear buffer
-      sb.setLength(0);
+      String text = ex.text;
       for(ELMention m : ex.mentions){
         sb.append(id);
+        sb.append(SEPARATOR);
+        sb.append(text);
         sb.append(SEPARATOR);
         sb.append(m.getSurface());
         sb.append(SEPARATOR);
         sb.append(m.id);
         sb.append(SEPARATOR);
+        sb.append(m.getType());
+        sb.append(SEPARATOR);
+
           for(WikiCand c : m.getCandidates()){
-            sb.append(c.getTitle());
+            sb.append(c.getOrigTitle());
             sb.append(SEPARATOR);
             sb.append(c.getScore());
             sb.append(SEPARATOR);
